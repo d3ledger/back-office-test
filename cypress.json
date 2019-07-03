@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://127.0.0.1:8080",
+  "fileServerFolder": "cypress",
+  "fixturesFolder": "cypress/fixtures",
+  "integrationFolder": "cypress/integration",
+  "pluginsFile": "cypress/plugins",
+  "screenshotsFolder": "cypress/screenshots",
+  "supportFile": "cypress/support",
+  "videosFolder": "cypress/videos",
+  "viewportWidth": 1200,
+  "requestTimeout": 10000
+}
