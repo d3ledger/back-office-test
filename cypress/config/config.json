@@ -7,6 +7,8 @@
     "SETTINGS_USERNAME": "test@notary",
     "SETTINGS_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc",
 
+    "SEARCH_USERNAME": "admin@notary",
+    "SEARCH_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc",
     "SEARCH_TOKEN": "Augur",
 
     "WITHDRAWAL_USERNAME": "admin@notary",

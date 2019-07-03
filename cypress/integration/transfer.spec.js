@@ -1,47 +1,22 @@
 const USERNAME = Cypress.env('TRANSFER_USERNAME')
 const KEY = Cypress.env('TRANSFER_KEY')
 const ADDRESS = Cypress.env('TRANSFER_ADDRESS')
-const ADDRESS_KEY = Cypress.env('TRANSFER_ADDRESS_KEY')
 const AMOUNT = Cypress.env('TRANSFER_AMOUNT')
 const TOKEN = Cypress.env('TRANSFER_TOKEN')
 
-if (USERNAME && KEY && ADDRESS && ADDRESS_KEY && AMOUNT && TOKEN) {
-  describe('Test wallets page without white list', () => {
+
+
+if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
+  describe('Test wallets page without white list', () => {    
     it('Make auth', () => {
       cy.visit("/")
       cy.login(USERNAME, KEY)
     })
-  
+
     it('Go to wallets page', () => {
       cy.goToPage('wallets', 'Wallets')
     })
-  
-    describe('Test sorting', () => {
-      it('Sort wallets with alphabetical descending order', () => {
-        cy.get('#wallets-sort-button').click({ force: true })
-        cy.get('.el-dropdown-menu__item:contains("alphabetical (desc)")').click({ force: true })
-  
-        cy.get('a.card .label').first().invoke('text').as('firstWalletName')
-        cy.get('a.card .label').last().invoke('text').as('lastWalletName')
-  
-        cy.get('@firstWalletName').then(firstWalletName => {
-          cy.get('@lastWalletName').should('lte', firstWalletName)
-        })
-      })
-  
-      it('Sort wallets with alphabetical ascending order', () => {
-        cy.get('#wallets-sort-button').click({ force: true })
-        cy.get('.el-dropdown-menu__item:contains("alphabetical (asc)")').click({ force: true })
-  
-        cy.get('a.card .label').first().invoke('text').as('firstWalletName')
-        cy.get('a.card .label').last().invoke('text').as('lastWalletName')
-  
-        cy.get('@firstWalletName').then(firstWalletName => {
-          cy.get('@lastWalletName').should('gte', firstWalletName)
-        })
-      })
-    })
-  
+
     describe('Test search', () => {
       it('Search for wallet', () => {
         cy.get('.el-input__inner')
@@ -105,7 +80,7 @@ if (USERNAME && KEY && ADDRESS && ADDRESS_KEY && AMOUNT && TOKEN) {
           .should('be.visible')
       })
   
-      it('Validate modal - correct', () => {
+      it('Validate modal - correct', () => {    
         cy.get('div.el-dialog').eq(2)
           .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
           .type(AMOUNT)
@@ -114,11 +89,21 @@ if (USERNAME && KEY && ADDRESS && ADDRESS_KEY && AMOUNT && TOKEN) {
           .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
           .type(ADDRESS)
           .should('have.value', ADDRESS)
+        cy.wait(2000)
         cy.get('div.el-dialog').eq(2)
-          .find('.el-dialog__body > .el-button')
+          .find('.el-button:contains("TRANSFER")')
           .click()
-        cy.get('#approval-dialog').should('be.visible')
-        cy.get('#approval-dialog i.el-dialog__close').click()
+
+        cy.get('#approval-dialog .el-input')
+        .each(function ($el, index) {
+          cy.wrap($el).find('.el-input__inner')
+            .type(Cypress.env('EXCHANGE_KEY'))
+            .should('have.value', Cypress.env('EXCHANGE_KEY'))
+        })
+    
+        cy.get('#confirm-approval-form').should('not.be.disabled')
+        cy.get('#confirm-approval-form').click({ force: true })
+        cy.waitForConfirmation()
       })
   
       it('Close modal', () => {

@@ -123,28 +123,20 @@ if (USERNAME) {
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .type(ADDRESS)
         .should('have.value', ADDRESS)
+      cy.wait(2000)
       cy.get('div.el-dialog').eq(3)
         .find('.el-button:contains("EXCHANGE")').click()
   
-      // cy.get('#approval-dialog .el-input')
-      // .each(function ($el, index) {
-      //   cy.wrap($el).find('.el-input__inner')
-      //     .type(Cypress.env('EXCHANGE_KEY'))
-      //     .should('have.value', Cypress.env('EXCHANGE_KEY'))
-      // })
+      cy.get('#approval-dialog .el-input')
+      .each(function ($el, index) {
+        cy.wrap($el).find('.el-input__inner')
+          .type(Cypress.env('EXCHANGE_KEY'))
+          .should('have.value', Cypress.env('EXCHANGE_KEY'))
+      })
   
-      // cy.get('#confirm-approval-form').should('not.be.disabled')
-      // cy.get('#confirm-approval-form').click({ force: true })
-      // cy.waitForConfirmation()
-  
-      // cy.get('div.el-dialog').eq(3)
-      //   .find('.el-dialog__body > .el-button')
-      //   .click()
+      cy.get('#confirm-approval-form').should('not.be.disabled')
+      cy.get('#confirm-approval-form').click({ force: true })
+      cy.waitForConfirmation()
     })
-  
-    // it('Close modal', () => {
-    //   cy.get('i.el-dialog__close').eq(3).click()
-    //   cy.get('div.el-dialog').eq(3).should('not.be.visible')
-    // })
   })  
 }
