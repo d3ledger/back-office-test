@@ -35,7 +35,7 @@ if (USERNAME) {
       cy.get('div.el-dialog').eq(3).should('be.visible')
     })
   
-    it('Validate offer amount field', () => {
+    it.skip('Validate offer amount field', () => {
       cy.get('div.el-dialog').eq(3)
         .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_OFFER)
@@ -51,7 +51,7 @@ if (USERNAME) {
         .should('be.visible')
     })
   
-    it('Validate request amount field', () => {
+    it.skip('Validate request amount field', () => {
       cy.get('div.el-dialog').eq(3)
         .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_REQUEST)
@@ -79,7 +79,7 @@ if (USERNAME) {
         .should('be.visible')
     })
   
-    it('Validate account field', () => {
+    it.skip('Validate account field', () => {
       cy.get('div.el-dialog').eq(3)
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .type(ADDRESS)
@@ -95,7 +95,7 @@ if (USERNAME) {
         .should('be.visible')
     })
   
-    it('Validate modal - handle an error', () => {
+    it.skip('Validate modal - handle an error', () => {
       cy.get('div.el-dialog').eq(3)
         .find('.el-dialog__body > .el-button')
         .click()
@@ -124,7 +124,7 @@ if (USERNAME) {
         .type(ADDRESS)
         .should('have.value', ADDRESS)
       cy.get('div.el-dialog').eq(3)
-        .find('.el-button:contains("EXCHANGE")').click({ force: true })
+        .find('.el-button:contains("EXCHANGE")').click()
   
       // cy.get('#approval-dialog .el-input')
       // .each(function ($el, index) {

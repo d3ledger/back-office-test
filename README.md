@@ -18,3 +18,10 @@ $ yarn
 Config file exists in `/cypress/config/config.json`.
 - baseUrl - url of launched D3 frontend instance. 
 - env - variables to configure tests
+
+## Run
+
+```
+yarn test
+yarn test:terminal
+```
