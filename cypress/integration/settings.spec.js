@@ -1,8 +1,11 @@
-if (Cypress.env('SETTINGS_USERNAME')) {
+const USERNAME = Cypress.env('SETTINGS_USERNAME')
+const KEY = Cypress.env('SETTINGS_KEY')
+
+if (USERNAME && KEY) {
   describe('Test settings page', () => {
     it('Make auth', () => {
       cy.visit("/")
-      cy.login(Cypress.env('SETTINGS_USERNAME'), Cypress.env('SETTINGS_KEY'))
+      cy.login(USERNAME, KEY)
     })
   
     it('Go to settings page', () => {
@@ -36,7 +39,6 @@ if (Cypress.env('SETTINGS_USERNAME')) {
       })
   
       it('Add public key', () => {
-        cy.wrap(Cypress.env('PRIVATE_KEY_1')).as('validPrivateKey')
         cy.get('[data-cy="addPublicKey"]').click()
         cy.get('[data-cy="addPublicKeyDialog"]')
           .should('be.visible')
@@ -44,8 +46,8 @@ if (Cypress.env('SETTINGS_USERNAME')) {
         cy.get('#approval-dialog .el-input')
           .each(function ($el, index) {
             cy.wrap($el).find('.el-input__inner')
-              .type(this.validPrivateKey)
-              .should('have.value', this.validPrivateKey)
+              .type(KEY)
+              .should('have.value', KEY)
           })
         cy.get('#confirm-approval-form').should('not.be.disabled')
         cy.get('#confirm-approval-form').click({ force: true })
@@ -69,7 +71,6 @@ if (Cypress.env('SETTINGS_USERNAME')) {
       })
   
       it('Remove public key', () => {
-        let keyToRemove
         cy.get('[data-cy="accountSignatories"]')
           .children()
           .last()
@@ -80,12 +81,11 @@ if (Cypress.env('SETTINGS_USERNAME')) {
           .find('.el-button')
           .contains('Remove')
           .click()
-          cy.wrap(Cypress.env('PRIVATE_KEY_1')).as('validPrivateKey')
           cy.get('#approval-dialog .el-input')
           .each(function ($el, index) {
             cy.wrap($el).find('.el-input__inner')
-              .type(this.validPrivateKey)
-              .should('have.value', this.validPrivateKey)
+              .type(KEY)
+              .should('have.value', KEY)
           })
         cy.get('#confirm-approval-form').click({ force: true })
       })

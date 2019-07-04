@@ -15,6 +15,7 @@ describe('Test login page', () => {
 
   if (Cypress.env('LOGIN_USERNAME')) {
     it('Log in', () => {
+      cy.visit('/')
       cy.login(Cypress.env('LOGIN_USERNAME'), Cypress.env('LOGIN_KEY'))
     })
   

@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:8082",
+  "env": {
+    "LOGIN_USERNAME": "test@notary",
+    "LOGIN_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc"
+  }
+}
