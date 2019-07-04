@@ -34,39 +34,7 @@ if (USERNAME) {
       cy.get('[data-cy=exchange]').click()
       cy.get('div.el-dialog').eq(3).should('be.visible')
     })
-  
-    it.skip('Validate offer amount field', () => {
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
-        .type(AMOUNT_OFFER)
-        .should('have.value', AMOUNT_OFFER)
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(1) > .el-form-item__content > .el-form-item__error')
-        .should('not.be.visible')
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
-        .clear()
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(1) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible')
-    })
-  
-    it.skip('Validate request amount field', () => {
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
-        .type(AMOUNT_REQUEST)
-        .should('have.value', AMOUNT_REQUEST)
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(3) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible').should('contain', 'Please select asset')
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
-        .clear()
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(3) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible')
-    })
-  
+
     it('Select second token', () => {
       cy.get('div.el-dialog').eq(3)
         .find(':nth-child(3) > .el-form-item__content > .el-input-group > .el-input-group__append > .el-select > .el-input > .el-input__inner')
@@ -94,23 +62,8 @@ if (USERNAME) {
         .find(':nth-child(5) > .el-form-item__content > .el-form-item__error')
         .should('be.visible')
     })
-  
-    it.skip('Validate modal - handle an error', () => {
-      cy.get('div.el-dialog').eq(3)
-        .find('.el-dialog__body > .el-button')
-        .click()
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(1) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible')
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(3) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible')
-      cy.get('div.el-dialog').eq(3)
-        .find(':nth-child(5) > .el-form-item__content > .el-form-item__error')
-        .should('be.visible')
-    })
-  
-    it('Validate modal - correct', () => {
+    
+    it('Make transfer transaction', () => {
       cy.get('div.el-dialog').eq(3)
         .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_OFFER)
@@ -133,7 +86,7 @@ if (USERNAME) {
           .type(Cypress.env('EXCHANGE_KEY'))
           .should('have.value', Cypress.env('EXCHANGE_KEY'))
       })
-  
+
       cy.get('#confirm-approval-form').should('not.be.disabled')
       cy.get('#confirm-approval-form').click({ force: true })
       cy.waitForConfirmation()
