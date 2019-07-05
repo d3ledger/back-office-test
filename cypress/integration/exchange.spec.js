@@ -1,6 +1,7 @@
 const USERNAME = Cypress.env('EXCHANGE_USERNAME')
 const KEY = Cypress.env('EXCHANGE_KEY')
 const ADDRESS = Cypress.env('EXCHANGE_ADDRESS')
+const ADDRESS_KEY = Cypress.env('EXCHANGE_ADDRESS_KEY')
 const AMOUNT_OFFER = Cypress.env('EXCHANGE_AMOUNT_OFFER')
 const TOKEN_OFFER = Cypress.env('EXCHANGE_TOKEN_OFFER')
 const AMOUNT_REQUEST = Cypress.env('EXCHANGE_AMOUNT_REQUEST')
@@ -89,7 +90,24 @@ if (USERNAME) {
 
       cy.get('#confirm-approval-form').should('not.be.disabled')
       cy.get('#confirm-approval-form').click({ force: true })
-      cy.waitForConfirmation()
+      cy.waitForConfirmation(10000)
+    })
+
+    it('Log out', () => {
+      cy.get('.el-side-menu .el-menu-item:contains("Logout")').click({ force: true })
+      cy.contains('Welcome to D3').should('be.visible')
+    })
+
+    it('Make auth in destination account', () => {
+      cy.login(ADDRESS, ADDRESS_KEY)
+    })
+
+    it("Check exchange made", () => {
+      cy.goToPage('settlements', 'Exchange')
+      cy.get('.navlink:contains("Incoming")')
+        .click()
+      
+      cy.get(`.cell:contains("from ${USERNAME}")`)
     })
   })  
 }
