@@ -28,8 +28,10 @@ describe('Test login page', () => {
 
 describe('Test register page', () => {
   it('Click sign up button', () => {
-    cy.get('[data-cy=signup]').click()
     cy.get('[data-cy=signup]').should('be.visible')
+    cy.get('[data-cy=signup]').click()
+
+    cy.waitPage('signup')
   })
 
   it('Register new user', () => {

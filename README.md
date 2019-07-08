@@ -22,6 +22,19 @@ Config file exists in `/cypress/config/config.json`.
 ## Run
 
 ```
+// run with GUI
 yarn test
+// run in terminal
 yarn test:terminal
+```
+
+## Use several configs
+If you want to use several configs, you can store them in `/cypress/config` folder and run with environment variable `CYPRESS_configFile` with the name of config file.
+```
+CYPRESS_configFile="dev" yarn test
+```
+
+## Run only one test in terminal
+```
+yarn test:terminal --spec "cypress/integration/auth.spec.js"
 ```

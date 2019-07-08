@@ -17,10 +17,15 @@ Cypress.Commands.add('waitForConfirmation', (time = 5000) => {
   cy.wait(time)
 })
 
+Cypress.Commands.add('waitPage', (page, timeout = 5000) => {
+  cy.location('hash', {timeout})
+    .should('include', page);
+})
+
 Cypress.Commands.add('goToPage', (url, expect) => {
   cy.wait(2000)
   cy.get(`.el-side-menu .el-menu-item:contains("${expect}")`).click({ force: true })
-  cy.url().should('contain', url)
+  cy.waitPage(url)
 })
 
 Cypress.Commands.add('loginWithFile', (keyPath) => {

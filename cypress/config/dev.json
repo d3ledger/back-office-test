@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://localhost:8082",
+  "baseUrl": "https://s3.tst.d3.soramitsu.co.jp",
   "env": {
     "LOGIN_USERNAME": "test@notary",
-    "LOGIN_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc"
+    "LOGIN_KEY": "314B202C35DF8439A5BC0951A86353BB5079DABC1B342DF992AC0F12A75545BD"
   }
 }
