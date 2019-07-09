@@ -81,17 +81,19 @@ if (USERNAME && KEY) {
           .find('.el-button')
           .contains('Remove')
           .click()
-          cy.get('#approval-dialog .el-input')
+
+        cy.get('#approval-dialog .el-input')
           .each(function ($el, index) {
             cy.wrap($el).find('.el-input__inner')
               .type(KEY)
               .should('have.value', KEY)
           })
         cy.get('#confirm-approval-form').click({ force: true })
+        cy.waitForConfirmation()
       })
   
       it('Handle success message', () => {
-        cy.get('.el-message', { timeout: 10000 }).should('be.visible')
+        cy.get('.el-message', { timeout: 20000 }).should('be.visible')
         cy.get('[data-cy="accountSignatories"]').children()
           .then($children => {
             expect($children.length).eq(accountSignatories)

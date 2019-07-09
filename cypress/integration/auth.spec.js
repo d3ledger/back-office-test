@@ -5,12 +5,11 @@ const fakeKeyPath = 'fake@d3.priv'
 describe('Test login page', () => {
   it('Log in with incorrect data', () => {
     cy.visit('/')
-    cy.upload_file(fakeKeyPath, 'input.el-upload__input')
+    cy.get('[name=privateKey]').type('0000000000000000000000000000000000000000000000000000000000000000')
+    cy.get('[name=username]').type('this_account_doesnt_exists@d4')
     cy.get('form > div:nth-child(3) input').click()
     cy.get('.el-scrollbar__view > :nth-child(1)').click()
     cy.get('[data-cy=login').click()
-    cy.contains('Login error').should('be.visible')
-    cy.get('.el-button:contains("OK")').click()
   })
 
   if (Cypress.env('LOGIN_USERNAME')) {
