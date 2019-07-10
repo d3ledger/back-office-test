@@ -8,7 +8,7 @@ const AMOUNT_REQUEST = Cypress.env('EXCHANGE_AMOUNT_REQUEST')
 const TOKEN_REQUEST = Cypress.env('EXCHANGE_TOKEN_REQUEST')
 
 
-if (USERNAME) {
+if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST && TOKEN_REQUEST) {
   describe('Test exchange modal', () => {
     it('Make auth', () => {
       cy.visit("/")
@@ -93,21 +93,24 @@ if (USERNAME) {
       cy.waitForConfirmation(10000)
     })
 
-    it('Log out', () => {
-      cy.get('.el-side-menu .el-menu-item:contains("Logout")').click({ force: true })
-      cy.contains('Welcome to D3').should('be.visible')
-    })
+    if (ADDRESS_KEY) {
 
-    it('Make auth in destination account', () => {
-      cy.login(ADDRESS, ADDRESS_KEY)
-    })
+      it('Log out', () => {
+        cy.get('.el-side-menu .el-menu-item:contains("Logout")').click({ force: true })
+        cy.contains('Welcome to D3').should('be.visible')
+      })
 
-    it("Check exchange made", () => {
-      cy.goToPage('settlements', 'Exchange')
-      cy.get('.navlink:contains("Incoming")')
-        .click()
-      
-      cy.get(`.cell:contains("from ${USERNAME}")`)
-    })
+      it('Make auth in destination account', () => {
+        cy.login(ADDRESS, ADDRESS_KEY)
+      })
+  
+      it("Check exchange made", () => {
+        cy.goToPage('settlements', 'Exchange')
+        cy.get('.navlink:contains("Incoming")')
+          .click()
+        
+        cy.get(`.cell:contains("from ${USERNAME}")`)
+      })
+    }
   })  
 }

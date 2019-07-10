@@ -1,7 +1,5 @@
 import faker from 'faker'
 
-const fakeKeyPath = 'fake@d3.priv'
-
 describe('Test login page', () => {
   it('Log in with incorrect data', () => {
     cy.visit('/')

@@ -52,26 +52,25 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
         cy.get('[data-cy=withdraw]').click()
         cy.get('div.el-dialog').eq(0).should('be.visible')
       })
-  
-  
+
       it('Make withdrawal transaction', () => {
         cy.get('div.el-dialog').eq(0)
           .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
           .type(AMOUNT)
           .should('have.value', AMOUNT)
         cy.get('div.el-dialog').eq(0)
-          .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
-          .type(ADDRESS)
-          .should('have.value', ADDRESS)
+          .find('.withdraw-wallet_select')
+          .click()
+        cy.get(`.el-select-dropdown__item:contains("${ADDRESS}")`).eq(0)
+          .click()
         cy.get('div.el-dialog').eq(0)
           .find('.el-form-item__content > .el-button')
           .click()
         cy.get('div.el-dialog').eq(0)
-          .get('div.el-dialog')
-          .eq(4)
+          .get('div.el-dialog').eq(4)
           .should('be.visible')
       })
-  
+
       it('Validate approval dialog - correct', () => {
         cy.get('#approval-dialog .el-input')
           .each(function ($el, index) {
@@ -80,21 +79,21 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
               .type(KEY)
               .should('have.value', KEY)
           })
-  
+
         cy.get('#confirm-approval-form')
           .should('not.be.disabled')
           .click()
         cy.wait(8000)
       })
-  
+
       it('Close approval modal', () => {
         cy.get('#approval-dialog i.el-dialog__close').click()
       })
-  
+
       it('Close modal', () => {
         cy.get('i.el-dialog__close').eq(0).click()
         cy.get('div.el-dialog').eq(0).should('not.be.visible')
       })
     })
-  })  
+  })
 }
