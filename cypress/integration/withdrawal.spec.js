@@ -50,23 +50,23 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
     describe('Test withdraw', () => {
       it('Open modal', () => {
         cy.get('[data-cy=withdraw]').click()
-        cy.get('div.el-dialog').eq(0).should('be.visible')
+        cy.get('[data-cy=withdrawalModal]').should('be.visible')
       })
 
       it('Make withdrawal transaction', () => {
-        cy.get('div.el-dialog').eq(0)
+        cy.get('[data-cy=withdrawalModal]')
           .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
           .type(AMOUNT)
           .should('have.value', AMOUNT)
-        cy.get('div.el-dialog').eq(0)
+        cy.get('[data-cy=withdrawalModal]')
           .find('.withdraw-wallet_select')
           .click()
         cy.get(`.el-select-dropdown__item:contains("${ADDRESS}")`).eq(0)
           .click()
-        cy.get('div.el-dialog').eq(0)
+        cy.get('[data-cy=withdrawalModal]')
           .find('.el-form-item__content > .el-button')
           .click()
-        cy.get('div.el-dialog').eq(0)
+        cy.get('[data-cy=withdrawalModal]')
           .get('div.el-dialog').eq(4)
           .should('be.visible')
       })
@@ -92,7 +92,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
 
       it('Close modal', () => {
         cy.get('i.el-dialog__close').eq(0).click()
-        cy.get('div.el-dialog').eq(0).should('not.be.visible')
+        cy.get('[data-cy=withdrawalModal]').should('not.be.visible')
       })
     })
   })

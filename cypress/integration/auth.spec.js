@@ -1,6 +1,7 @@
 import faker from 'faker'
+import FileSaver from 'file-saver'
 
-describe('Test login page', () => {
+describe.skip('Test login page', () => {
   it('Log in with incorrect data', () => {
     cy.visit('/')
     cy.get('[name=privateKey]').type('0000000000000000000000000000000000000000000000000000000000000000')
@@ -25,6 +26,8 @@ describe('Test login page', () => {
 
 describe('Test register page', () => {
   it('Click sign up button', () => {
+    cy.visit('/')
+
     cy.get('[data-cy=signup]').should('be.visible')
     cy.get('[data-cy=signup]').click()
 
@@ -32,6 +35,11 @@ describe('Test register page', () => {
   })
 
   it('Register new user', () => {
+    // cy.stub(FileSaver, 'saveAs', (blob, filename) => {console.log(blob, filename)})
+    cy.window().then((win) => {
+      console.log(win)
+      //cy.stub(win, 'prompt').returns('what i want typed into it')
+   })
     const username = faker.fake("{{name.firstName}}{{name.lastName}}").toLowerCase()
     cy.get('.el-input__inner[name="username"]').type(username)
       .should('have.value', username)

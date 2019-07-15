@@ -33,52 +33,52 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
   
     it('Open modal', () => {
       cy.get('[data-cy=exchange]').click()
-      cy.get('div.el-dialog').eq(3).should('be.visible')
+      cy.get('[data-cy=exchangeModal]').should('be.visible')
     })
 
     it('Select second token', () => {
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(3) > .el-form-item__content > .el-input-group > .el-input-group__append > .el-select > .el-input > .el-input__inner')
         .click()
       cy.get('.el-scrollbar > .el-select-dropdown__wrap > .el-scrollbar__view')
         .find(`.el-select-dropdown__item:contains("${TOKEN_REQUEST}")`).eq(1)
         .click()
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find('.el-dialog__body > .el-form > :nth-child(4)')
         .should('be.visible')
     })
   
     it.skip('Validate account field', () => {
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .type(ADDRESS)
         .should('have.value', ADDRESS)
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(5) > .el-form-item__content > .el-form-item__error')
         .should('not.be.visible')
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .clear()
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(5) > .el-form-item__content > .el-form-item__error')
         .should('be.visible')
     })
     
     it('Make transfer transaction', () => {
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_OFFER)
         .should('have.value', AMOUNT_OFFER)
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_REQUEST)
         .should('have.value', AMOUNT_REQUEST)
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .type(ADDRESS)
         .should('have.value', ADDRESS)
       cy.wait(2000)
-      cy.get('div.el-dialog').eq(3)
+      cy.get('[data-cy=exchangeModal]')
         .find('.el-button:contains("EXCHANGE")').click()
   
       cy.get('#approval-dialog .el-input')
@@ -90,7 +90,8 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
 
       cy.get('#confirm-approval-form').should('not.be.disabled')
       cy.get('#confirm-approval-form').click({ force: true })
-      cy.waitForConfirmation(10000)
+      cy.waitForConfirmation()
+      cy.contains("New settlement has successfully been created", {timeout: 20000}).should('be.visible')
     })
 
     if (ADDRESS_KEY) {
