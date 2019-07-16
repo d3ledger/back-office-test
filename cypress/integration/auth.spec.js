@@ -1,7 +1,7 @@
 import faker from 'faker'
 import FileSaver from 'file-saver'
 
-describe.skip('Test login page', () => {
+describe('Test login page', () => {
   it('Log in with incorrect data', () => {
     cy.visit('/')
     cy.get('[name=privateKey]').type('0000000000000000000000000000000000000000000000000000000000000000')
@@ -25,6 +25,7 @@ describe.skip('Test login page', () => {
 })
 
 describe('Test register page', () => {
+  let privateKey, username
   it('Click sign up button', () => {
     cy.visit('/')
 
@@ -35,16 +36,21 @@ describe('Test register page', () => {
   })
 
   it('Register new user', () => {
-    // cy.stub(FileSaver, 'saveAs', (blob, filename) => {console.log(blob, filename)})
-    cy.window().then((win) => {
-      console.log(win)
-      //cy.stub(win, 'prompt').returns('what i want typed into it')
-   })
-    const username = faker.fake("{{name.firstName}}{{name.lastName}}").toLowerCase()
+    username = faker.fake("{{name.firstName}}{{name.lastName}}").toLowerCase()
     cy.get('.el-input__inner[name="username"]').type(username)
       .should('have.value', username)
     cy.get('.el-form-item__content > .el-button.fullwidth').click()
-    cy.waitForConfirmation(10000)
-    cy.contains('Download your private key and keep it secret!').should('be.visible')
+    cy.contains('Download your private key and keep it secret!', {timeout: 10000}).should('be.visible')
+    cy.get('.el-button:contains("Download")').click()
+    cy.get('.el-button:contains("Confirm")').click()
+    cy.window().then((win) => {
+      privateKey = win.Cypress.privateKey    
+    })
+  })
+
+  it('Check login after registration', () => {  
+    cy.wait(1000)  
+    cy.login(`${username}@d3`, privateKey)
+    cy.contains(`You don't have any wallets yet. Please add walets in Settings`).should('be.visible')
   })
 })
