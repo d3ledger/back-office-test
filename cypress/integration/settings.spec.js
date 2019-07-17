@@ -43,16 +43,7 @@ if (USERNAME && KEY) {
         cy.get('[data-cy="addPublicKeyDialog"]')
           .should('be.visible')
         cy.get('[data-cy="addPublicKeyDialog').find('.dialog-form_buttons-block > .action').click()
-        cy.get('#approval-dialog .el-input')
-          .each(function ($el, index) {
-            cy.wrap($el).find('.el-input__inner')
-              .type(KEY)
-              .should('have.value', KEY)
-          })
-        cy.wait(2000)
-        cy.get('#confirm-approval-form').should('not.be.disabled')
-        cy.get('#confirm-approval-form').click({ force: true })
-        cy.waitForConfirmation()
+        cy.confirm([KEY])
       })
   
       it('Download private key', () => {
@@ -83,14 +74,7 @@ if (USERNAME && KEY) {
           .contains('Remove')
           .click()
 
-        cy.get('#approval-dialog .el-input')
-          .each(function ($el, index) {
-            cy.wrap($el).find('.el-input__inner')
-              .type(KEY)
-              .should('have.value', KEY)
-          })
-        cy.get('#confirm-approval-form').click({ force: true })
-        cy.waitForConfirmation()
+        cy.confirm([KEY])
       })
   
       it('Handle success message', () => {

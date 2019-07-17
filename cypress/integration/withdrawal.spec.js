@@ -72,27 +72,8 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
       })
 
       it('Validate approval dialog - correct', () => {
-        cy.get('#approval-dialog .el-input')
-          .each(function ($el, index) {
-            cy.wrap($el).find('.el-input__inner')
-              .clear()
-              .type(KEY)
-              .should('have.value', KEY)
-          })
-        cy.wait(2000)
-        cy.get('#confirm-approval-form')
-          .should('not.be.disabled')
-          .click()
-        cy.wait(8000)
-      })
-
-      it('Close approval modal', () => {
-        cy.get('#approval-dialog i.el-dialog__close').click()
-      })
-
-      it('Close modal', () => {
-        cy.get('i.el-dialog__close').eq(0).click()
-        cy.get('[data-cy=withdrawalModal]').should('not.be.visible')
+        cy.confirm([KEY])
+        cy.contains('Withdrawal request is submitted to notary', {timeout: 20000})
       })
     })
   })

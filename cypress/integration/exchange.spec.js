@@ -81,16 +81,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
       cy.get('[data-cy=exchangeModal]')
         .find('.el-button:contains("EXCHANGE")').click()
   
-      cy.get('#approval-dialog .el-input')
-      .each(function ($el, index) {
-        cy.wrap($el).find('.el-input__inner')
-          .type(Cypress.env('EXCHANGE_KEY'))
-          .should('have.value', Cypress.env('EXCHANGE_KEY'))
-      })
-      cy.wait(2000)
-      cy.get('#confirm-approval-form').should('not.be.disabled')
-      cy.get('#confirm-approval-form').click({ force: true })
-      cy.waitForConfirmation()
+      cy.confirm([KEY])
       cy.contains("New settlement has successfully been created", {timeout: 20000}).should('be.visible')
     })
 

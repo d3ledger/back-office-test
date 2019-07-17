@@ -94,16 +94,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
           .find('.el-button:contains("TRANSFER")')
           .click()
 
-        cy.get('#approval-dialog .el-input')
-        .each(function ($el, index) {
-          cy.wrap($el).find('.el-input__inner')
-            .type(Cypress.env('EXCHANGE_KEY'))
-            .should('have.value', Cypress.env('EXCHANGE_KEY'))
-        })
-        cy.wait(2000)
-        cy.get('#confirm-approval-form').should('not.be.disabled')
-        cy.get('#confirm-approval-form').click({ force: true })
-        cy.waitForConfirmation()
+        cy.confirm([KEY])
       })
 
       it('Wait success', () => {    

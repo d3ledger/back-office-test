@@ -55,6 +55,20 @@ Cypress.Commands.add('setTimezone', (timezone) => {
   })
 })
 
+Cypress.Commands.add('confirm', (keys) => {
+  cy.get('[data-cy=confirmModal] .el-input')
+    .each(function ($el, index) {
+        cy.wrap($el).find('.el-input__inner')
+          .type(keys[index])
+          .should('have.value', keys[index])
+    })
+  cy.wait(2000)
+  cy.get('#confirm-approval-form').should('not.be.disabled')
+  cy.get('#confirm-approval-form').click({ force: true })
+  cy.waitForConfirmation()
+})
+
+
 /*
  * In test environment, clicking a download button opens an alert instead of
  * downloading a file so Cypress can detect window:alert event to verify that
