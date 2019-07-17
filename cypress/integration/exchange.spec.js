@@ -87,7 +87,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
           .type(Cypress.env('EXCHANGE_KEY'))
           .should('have.value', Cypress.env('EXCHANGE_KEY'))
       })
-
+      cy.wait(2000)
       cy.get('#confirm-approval-form').should('not.be.disabled')
       cy.get('#confirm-approval-form').click({ force: true })
       cy.waitForConfirmation()

@@ -49,6 +49,7 @@ if (USERNAME && KEY) {
               .type(KEY)
               .should('have.value', KEY)
           })
+        cy.wait(2000)
         cy.get('#confirm-approval-form').should('not.be.disabled')
         cy.get('#confirm-approval-form').click({ force: true })
         cy.waitForConfirmation()

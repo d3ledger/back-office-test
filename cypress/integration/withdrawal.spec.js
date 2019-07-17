@@ -79,7 +79,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
               .type(KEY)
               .should('have.value', KEY)
           })
-
+        cy.wait(2000)
         cy.get('#confirm-approval-form')
           .should('not.be.disabled')
           .click()
