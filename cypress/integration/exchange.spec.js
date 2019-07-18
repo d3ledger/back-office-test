@@ -64,7 +64,7 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
         .should('be.visible')
     })
     
-    it('Make transfer transaction', () => {
+    it('Make exchange transaction', () => {
       cy.get('[data-cy=exchangeModal]')
         .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
         .type(AMOUNT_OFFER)
@@ -77,6 +77,35 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
         .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
         .type(ADDRESS)
         .should('have.value', ADDRESS)
+      cy.get('[data-cy=exchangeModal]')
+        .find(':nth-child(6) > .el-form-item__content > .el-input > .el-input__inner')
+        .type('Short description')
+        .should('have.value', 'Short description')
+      cy.wait(2000)
+      cy.get('[data-cy=exchangeModal]')
+        .find('.el-button:contains("EXCHANGE")').click()
+  
+      cy.confirm([KEY])
+      cy.contains("New settlement has successfully been created", {timeout: 20000}).should('be.visible')
+    })
+
+    it('Make exchange to delete', () => {
+      cy.get('[data-cy=exchangeModal]')
+        .find(':nth-child(1) > .el-form-item__content > .el-input > .el-input__inner')
+        .type(AMOUNT_OFFER)
+        .should('have.value', AMOUNT_OFFER)
+      cy.get('[data-cy=exchangeModal]')
+        .find(':nth-child(3) > .el-form-item__content > .el-input > .el-input__inner')
+        .type(AMOUNT_REQUEST)
+        .should('have.value', AMOUNT_REQUEST)
+      cy.get('[data-cy=exchangeModal]')
+        .find(':nth-child(5) > .el-form-item__content > .el-input > .el-input__inner')
+        .type(ADDRESS)
+        .should('have.value', ADDRESS)
+      cy.get('[data-cy=exchangeModal]')
+        .find(':nth-child(6) > .el-form-item__content > .el-input > .el-input__inner')
+        .type('Transaction to delete')
+        .should('have.value', 'Transaction to delete')
       cy.wait(2000)
       cy.get('[data-cy=exchangeModal]')
         .find('.el-button:contains("EXCHANGE")').click()
@@ -86,7 +115,6 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
     })
 
     if (ADDRESS_KEY) {
-
       it('Log out', () => {
         cy.get('.el-side-menu .el-menu-item:contains("Logout")').click({ force: true })
         cy.contains('Welcome to D3').should('be.visible')
@@ -100,8 +128,16 @@ if (USERNAME && KEY && ADDRESS && AMOUNT_OFFER && TOKEN_OFFER && AMOUNT_REQUEST 
         cy.goToPage('settlements', 'Exchange')
         cy.get('.navlink:contains("Incoming")')
           .click()
-        
-        cy.get(`.cell:contains("from ${USERNAME}")`)
+
+        cy.get(`.cell:contains("from ${USERNAME}")`).should('be.visible')
+
+        cy.get('.el-button:contains("ACCEPT")').should('be.visible').click()
+        cy.confirm([KEY])
+        cy.contains('Accepted', {timeout: 10000}).should('be.visible')
+
+        cy.get('.el-button:contains("REJECT")').should('be.visible').click()
+        cy.confirm([KEY])
+        cy.contains('Rejected', {timeout: 10000}).should('be.visible')
       })
     }
   })  

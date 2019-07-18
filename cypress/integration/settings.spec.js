@@ -24,6 +24,24 @@ if (USERNAME && KEY) {
         expect(localStorage.getItem('settings')).to.eq('{"view":{"fiat":"USD","crypto":"XRP","timezone":"Europe/Dublin"}}')
       })
     })
+
+    describe('Networks', () => {
+      it('Register in BTC network', () => {
+        cy.get('.el-button:contains("Register in BTC network")')
+          .should('be.visible')
+          .click()
+        cy.contains('You successfully registered in BTC network!', { timeout: 10000 }).should('be.visible')
+        cy.get('.el-button:contains("Register in BTC network")').should('not.be.visible')
+      })
+
+      it('Register in BTC network', () => {
+        cy.get('.el-button:contains("Register in ETH network")')
+          .should('be.visible')
+          .click()
+        cy.contains('You successfully registered in ETH network!', { timeout: 10000 }).should('be.visible')
+        cy.get('.el-button:contains("Register in ETH network")').should('not.be.visible')
+      })
+    })
   
     describe('Public keys', () => {
       let accountSignatories = 0
