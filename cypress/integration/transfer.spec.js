@@ -20,13 +20,13 @@ if (USERNAME && KEY && ADDRESS && AMOUNT && TOKEN) {
     describe('Test search', () => {
       it('Search for wallet', () => {
         cy.get('.el-input__inner')
-          .type(Cypress.env('SEARCH_TOKEN')).should('have.value', Cypress.env('SEARCH_TOKEN'))
+          .type(TOKEN).should('have.value', TOKEN)
         cy.get('aside').find('a.card').should('have.length', 1)
       })
   
       it('Open wallet', () => {
         cy.get('a.card').first().click()
-        cy.get('.card_header').first().should('contain', Cypress.env('SEARCH_TOKEN'))
+        cy.get('.card_header').first().should('contain', TOKEN)
       })
     })
   
