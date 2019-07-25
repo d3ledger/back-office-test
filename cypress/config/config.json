@@ -1,8 +1,11 @@
 {
-  "baseUrl": "http://localhost:8082",
+  "baseUrl": "http://localhost:8080",
   "env": {
     "LOGIN_USERNAME": "test@notary",
     "LOGIN_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc",
+    "LOGIN_NODE": ".el-scrollbar__view > :nth-child(1)",
+
+    "SIGN_UP_NODE": ".el-scrollbar__view > :nth-child(1)",
 
     "SETTINGS_USERNAME": "test@notary",
     "SETTINGS_KEY": "e51123b78d658418d018e7d2486021209af3cff82714b4cb7925870fec6097dc",
@@ -36,4 +39,4 @@
     "EXCHANGE_AMOUNT_REQUEST": "1",
     "EXCHANGE_TOKEN_REQUEST": "Augur"
   }
-}
+}}}}}

@@ -3,8 +3,11 @@
   "env": {
     "LOGIN_USERNAME": "test@notary",
     "LOGIN_KEY": "314B202C35DF8439A5BC0951A86353BB5079DABC1B342DF992AC0F12A75545BD",
+    "LOGIN_NODE": ".el-scrollbar__view > :nth-child(3)",
+
+    "SIGN_UP_NODE": ".el-scrollbar__view > :nth-child(3)",
 
     "SETTINGS_USERNAME": "test@notary",
     "SETTINGS_KEY": "314B202C35DF8439A5BC0951A86353BB5079DABC1B342DF992AC0F12A75545BD"
   }
-}
+}}
