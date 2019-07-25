@@ -40,7 +40,7 @@ Cypress.Commands.add('login', (username, key) => {
   cy.get('[name=privateKey]').type(key)
   cy.get('[name=username]').type(username)
   cy.get('form > div:nth-child(3) input').click()
-  cy.get('.el-scrollbar__view > :nth-child(1)').click()
+  cy.get(Cypress.env('LOGIN_NODE')).click()
   cy.get('[data-cy=login').click()
   cy.url().should('be.not.eq', `${Cypress.config('baseUrl')}/#/login`)
 })

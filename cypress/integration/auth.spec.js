@@ -7,8 +7,9 @@ describe('Test login page', () => {
     cy.get('[name=privateKey]').type('0000000000000000000000000000000000000000000000000000000000000000')
     cy.get('[name=username]').type('this_account_doesnt_exists@d4')
     cy.get('form > div:nth-child(3) input').click()
-    cy.get('.el-scrollbar__view > :nth-child(1)').click()
+    cy.get(Cypress.env('LOGIN_NODE')).click()
     cy.get('[data-cy=login').click()
+    cy.contains(`Please check private key or username`).should('be.visible')
   })
 
   if (Cypress.env('LOGIN_USERNAME')) {
@@ -39,6 +40,8 @@ describe('Test register page', () => {
     username = faker.fake("{{name.firstName}}{{name.lastName}}").toLowerCase()
     cy.get('.el-input__inner[name="username"]').type(username)
       .should('have.value', username)
+    cy.get('form > div:nth-child(2) input').click()
+    cy.get(Cypress.env('SIGN_UP_NODE')).click()
     cy.get('.el-form-item__content > .el-button.fullwidth').click()
     cy.contains('Download your private key and keep it secret!', {timeout: 10000}).should('be.visible')
     cy.get('.el-button:contains("Download")').click()
